@@ -47,6 +47,8 @@ public class PointSET {
     }
 
     public Iterable<Point2D> range(RectHV rect) {
+        if (pSet == null) return null;
+
         Stack<Point2D> pStack = new Stack<Point2D>();   // Return any iterable DS
         for (Point2D p : pSet) { // Time prop. to # items in set
             if (rect.contains(p)) {
@@ -61,13 +63,18 @@ public class PointSET {
         if (p == null)
             throw new IllegalArgumentException();
 
-        double champion = Double.POSITIVE_INFINITY;
+        if (pSet == null)
+            return null;
+
+        Point2D champion = null;
+        double minDist = Double.POSITIVE_INFINITY;
         for (Point2D setPoint : pSet) {      // Time prop. to # items in set
-            if (setPoint.distanceTo(p) < champion) {
-                champion = setPoint.distanceTo(p);
+            if (setPoint.distanceTo(p) < minDist) {
+                champion = setPoint;
             }
         }
 
+        return champion;
     }
 
     public static void main(String[] args) {
